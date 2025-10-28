@@ -8,7 +8,14 @@ otherSetting is optional setting
 
 support polarDb
 
+## modify type
+add/delete table
+add/delete index
+add/delete column
+update column name/type/null/comment
 
+
+## demo
 ``` java
 
 public static void main(String[] args) throws SQLException {

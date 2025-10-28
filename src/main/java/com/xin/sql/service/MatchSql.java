@@ -41,10 +41,13 @@ public class MatchSql {
         }
 
         this.mySqlA = new DataBaseSchemaContext(toDataBase);
-        this.mySqlA.init(tableSchedulePredicate);
         this.mySqlB = new DataBaseSchemaContext(fromDataBase);
-        this.mySqlB.init(tableSchedulePredicate);
 
+    }
+
+    public void initTableInfos() throws SQLException {
+        this.mySqlA.init(tableSchedulePredicate);
+        this.mySqlB.init(tableSchedulePredicate);
     }
 
     public List<String> match() throws SQLException {

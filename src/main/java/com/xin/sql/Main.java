@@ -22,11 +22,21 @@ public class Main {
         ConnMsg connMsgB = new ConnMsg("localhost",3306,"flink_test2","xin","");
         OtherSetting otherSetting = new OtherSetting(true,true,"");
 
+        matchAndPrintResult(connMsgA, connMsgB, otherSetting);
+
+    }
+
+    private static void matchAndPrintResult(ConnMsg connMsgA, ConnMsg connMsgB, OtherSetting otherSetting) throws SQLException {
         MySql fromDatabase = new MySql(connMsgA);
         MySql toDatabase = new MySql(connMsgB);
 
 
         MatchSql matchSql = new MatchSql(otherSetting, fromDatabase, toDatabase);
+
+        System.out.println("collecting table info, wait a second");
+        matchSql.initTableInfos();
+
+        System.out.println("matching table difference");
         List<String> allModifySql = matchSql.match();
 
         System.out.println();
@@ -36,7 +46,6 @@ public class Main {
             System.out.println();
             System.out.println();
         }
-
     }
 
 

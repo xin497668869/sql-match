@@ -2,20 +2,20 @@
 Able to modify and match two MySQL databases and generate modified SQL, suitable for dev->test/uat->prod database matching, no longer need to record each SQL
 
 
-## how to use
+## How To Use
 com.xin.sql.Main is boot file, you can change the properties of connMsaA and connMsgB, then execute main method.
 otherSetting is optional setting
 
 support polarDb
 
-## modify type
+## Modify SQL Type
 add/delete table
 add/delete index
 add/delete column
 update column name/type/null/comment
 
 
-## demo
+## Demo
 ``` java
 
 public static void main(String[] args) throws SQLException {
@@ -40,7 +40,6 @@ public static void main(String[] args) throws SQLException {
             System.out.println();
         }
 
-        System.exit(0);
     }
 
 ```

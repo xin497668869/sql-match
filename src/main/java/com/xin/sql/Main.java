@@ -1,6 +1,5 @@
 package com.xin.sql;
 
-import com.alibaba.fastjson.JSON;
 import com.xin.sql.db.mysql.MySql;
 import com.xin.sql.property.ConnMsg;
 import com.xin.sql.property.OtherSetting;
@@ -19,14 +18,9 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
 
-        String arg0= JSON.toJSONString(new ConnMsg("localhost",3306,"flink_test","xin",""));
-        String arg1= JSON.toJSONString(new ConnMsg("localhost",3306,"flink_test2","xin",""));
-        String arg2= JSON.toJSONString(new OtherSetting(true,true,""));
-
-
-        ConnMsg connMsgA = JSON.parseObject(arg0, ConnMsg.class);
-        ConnMsg connMsgB = JSON.parseObject(arg1, ConnMsg.class);
-        OtherSetting otherSetting = JSON.parseObject(arg2, OtherSetting.class);
+        ConnMsg connMsgA = new ConnMsg("localhost",3306,"flink_test","xin","");
+        ConnMsg connMsgB = new ConnMsg("localhost",3306,"flink_test2","xin","");
+        OtherSetting otherSetting = new OtherSetting(true,true,"");
 
         MySql fromDatabase = new MySql(connMsgA);
         MySql toDatabase = new MySql(connMsgB);

@@ -68,15 +68,7 @@ public class SqlCreate {
 
 
         // 类似 MODIFY COLUMN `tsttt2`  varchar(255) NULL DEFAULT '0' COMMENT '测试属性' AFTER `tettt`
-        return "COLUMN " + Stream.of(
-                columnName
-                , column.getCOLUMN_TYPE()
-                , isNullStr(column.getIS_NULLABLE())
-                , SqlCreate.getExtra(column.getEXTRA())
-                , getDefault(column)
-                , getComment(column.getCOLUMN_COMMENT())
-                , position).filter(StringUtils::isNotEmpty)
-                .collect(Collectors.joining(" "));
+        return "COLUMN " + Stream.of(columnName, column.getCOLUMN_TYPE(), isNullStr(column.getIS_NULLABLE()), SqlCreate.getExtra(column.getEXTRA()), getDefault(column), getComment(column.getCOLUMN_COMMENT()), position).filter(StringUtils::isNotEmpty).collect(Collectors.joining(" "));
     }
 
 

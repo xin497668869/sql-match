@@ -1,7 +1,9 @@
-package com.xin.sql.entity; /**
+package com.xin.sql.entity;
+
+/**
  * @author 497668869@qq.com
  * @version 1.0
- * @description
+ * @description Column entity class for database table columns
  */
 
 import com.xin.sql.sql.SqlCreate;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- *
+ * Entity class representing a database column
  */
 @Data
 public class Column {
@@ -36,30 +38,40 @@ public class Column {
     private String COLUMN_KEY;
 
 
+    /**
+     * Compare two columns and generate difference tips
+     * @param aColumn First column to compare
+     * @param bColumn Second column to compare
+     * @return Difference tips as string
+     */
     public static String compareTip(Column aColumn, Column bColumn) {
         String tips = "";
         if (!Objects.equals(aColumn.getCOLUMN_TYPE(), bColumn.getCOLUMN_TYPE())) {
-            tips = tips + String.format("类型type 不一致, 原 %s : 现 %s; ", aColumn.getCOLUMN_TYPE(), bColumn.getCOLUMN_TYPE());
+            tips = tips + String.format("Type mismatch, Original %s : Current %s; ", aColumn.getCOLUMN_TYPE(), bColumn.getCOLUMN_TYPE());
         }
         if (!Objects.equals(aColumn.getIS_NULLABLE(), bColumn.getIS_NULLABLE())) {
-            tips = tips + String.format("是否可空 不一致, 原 %s : 现 %s; ", SqlCreate.isNullStr(aColumn.getIS_NULLABLE()), SqlCreate.isNullStr(bColumn.getIS_NULLABLE()));
+            tips = tips + String.format("Nullable mismatch, Original %s : Current %s; ", SqlCreate.isNullStr(aColumn.getIS_NULLABLE()), SqlCreate.isNullStr(bColumn.getIS_NULLABLE()));
         }
         if (!Objects.equals(aColumn.getCOLUMN_COMMENT(), bColumn.getCOLUMN_COMMENT())) {
-            tips = tips + String.format("注释 不一致, 原 %s : 现 %s; ", aColumn.getCOLUMN_COMMENT(), bColumn.getCOLUMN_COMMENT());
+            tips = tips + String.format("Comment mismatch, Original %s : Current %s; ", aColumn.getCOLUMN_COMMENT(), bColumn.getCOLUMN_COMMENT());
         }
         if (!Objects.equals(aColumn.getCOLUMN_DEFAULT(), bColumn.getCOLUMN_DEFAULT())) {
-            tips = tips + String.format("默认值 不一致, 原 %s : 现 %s; ", aColumn.getCOLUMN_DEFAULT(), bColumn.getCOLUMN_DEFAULT());
+            tips = tips + String.format("Default value mismatch, Original %s : Current %s; ", aColumn.getCOLUMN_DEFAULT(), bColumn.getCOLUMN_DEFAULT());
         }
 
         if (!Objects.equals(aColumn.getEXTRA(), bColumn.getEXTRA())) {
-            tips = tips + String.format("Extra 不一致, 原 %s : 现 %s; ", aColumn.getEXTRA(), bColumn.getEXTRA());
+            tips = tips + String.format("Extra mismatch, Original %s : Current %s; ", aColumn.getEXTRA(), bColumn.getEXTRA());
         }
 //        if (!Objects.equals(aColumn.getCollation(), bColumn.getCollation())) {
-//            tips = tips + String.format("编码 不一致, 原 %s : 现 %s; ", aColumn.getCollation(), bColumn.getCollation());
+//            tips = tips + String.format("Collation mismatch, Original %s : Current %s; ", aColumn.getCollation(), bColumn.getCollation());
 //        }
         return tips;
     }
 
+    /**
+     * Convert column to SQL create column statement
+     * @return SQL create column statement
+     */
     public String toTableCreateColumn() {
         String autoIncrement = SqlCreate.getExtra(getEXTRA());
         String nullStr = SqlCreate.isNullStr(getIS_NULLABLE());
@@ -94,6 +106,12 @@ public class Column {
         polarDifferenceColumnTypeName.put("decimal(6,2) unsigned", "decimal(6,2)");
     }
 
+    /**
+     * Compare this column with another column
+     * @param column Another column to compare
+     * @param isCommentCompared Whether to compare comments
+     * @return True if columns are equivalent, false otherwise
+     */
     public boolean compared(Column column, boolean isCommentCompared) {
         if (this == column) return true;
         if (column == null || getClass() != column.getClass()) return false;

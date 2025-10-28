@@ -12,7 +12,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OtherSetting {
+    /**
+     * show modify sql if comment is difference
+     */
     private boolean matchComment=true;
+    /**
+     * show more tips in modify sql
+     */
     private boolean tipsShow=true;
+
+    /**
+     * filterTables by ',' such as atable,btable
+     */
     private String filterTables;
 }
